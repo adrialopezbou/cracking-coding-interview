@@ -2,6 +2,16 @@ package com.programming.algthds.crackingcodinginterview.treesgraphs;
 
 public class FirstCommonAncestor {
 
+    public static void main(String[] args) {
+        FirstCommonAncestor solver = new FirstCommonAncestor();
+
+        NodeTree root = solver.createTree();
+
+        NodeTree result = solver.solve(solver.new NodeTree(1), solver.new NodeTree(4), root);
+
+        System.out.println(result.data);
+    }
+
     public NodeTree solve(NodeTree first, NodeTree second, NodeTree root) {
         AlgthClass result = recursive(first, second, root);
         return result.ancestor;
