@@ -1,23 +1,23 @@
 package com.programming.algthds.crackingcodinginterview.treesgraphs;
 
+import com.programming.algthds.crackingcodinginterview.treesgraphs.classes.TreeNode;
+
 public class FirstCommonAncestor {
 
     public static void main(String[] args) {
-        FirstCommonAncestor solver = new FirstCommonAncestor();
+        TreeNode root = TreeNode.createTreeForFirstCommonAncestor();
 
-        NodeTree root = solver.createTree();
-
-        NodeTree result = solver.solve(solver.new NodeTree(1), solver.new NodeTree(4), root);
+        TreeNode result = solve(new TreeNode(1), new TreeNode(4), root);
 
         System.out.println(result.data);
     }
 
-    public NodeTree solve(NodeTree first, NodeTree second, NodeTree root) {
+    public static TreeNode solve(TreeNode first, TreeNode second, TreeNode root) {
         AlgthClass result = recursive(first, second, root);
         return result.ancestor;
     }
 
-    private AlgthClass recursive(NodeTree first, NodeTree second, NodeTree root) {
+    private static AlgthClass recursive(TreeNode first, TreeNode second, TreeNode root) {
         if(root == null) {
             return new AlgthClass(false);
         }
@@ -45,46 +45,17 @@ public class FirstCommonAncestor {
         return new AlgthClass(false);
     }
 
-    public NodeTree createTree() {
-        NodeTree n = createParentWithChildren(new NodeTree(1), new NodeTree(2), 3);
-        n = createParentWithChildren(n, new NodeTree(4), 5);
-        n = createParentWithChildren( new NodeTree(6), n,  7);
-        n.right.right.right = new NodeTree(8);
-        return n;
-    }
 
-    public NodeTree createParentWithChildren(NodeTree left, NodeTree right, int data) {
-        return new NodeTree(left, right, data);
-    }
 
-    public class NodeTree {
-        public NodeTree left;
-        public NodeTree right;
-        public int data;
-
-        public NodeTree() {
-        }
-
-        public NodeTree(int data) {
-            this.data = data;
-        }
-
-        public NodeTree(NodeTree left, NodeTree right, int data) {
-            this.left = left;
-            this.right = right;
-            this.data = data;
-        }
-    }
-
-    public class AlgthClass {
-        public NodeTree ancestor;
+    public static class AlgthClass {
+        public TreeNode ancestor;
         public boolean found;
 
         public AlgthClass(boolean found) {
             this.found = found;
         }
 
-        public AlgthClass(NodeTree ancestor, boolean found) {
+        public AlgthClass(TreeNode ancestor, boolean found) {
             this.ancestor = ancestor;
             this.found = found;
         }

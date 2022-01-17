@@ -1,6 +1,6 @@
 package com.programming.algthds.crackingcodinginterview.treesgraphs;
 
-import org.w3c.dom.Node;
+import com.programming.algthds.crackingcodinginterview.treesgraphs.classes.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -9,9 +9,8 @@ import java.util.List;
 public class BSTSequences {
 
     public static void main(String[] args) {
-        BSTSequences solver = new BSTSequences();
-        NodeTree root = solver.createTree2();
-        List<LinkedList<Integer>> results = solver.recurseTree(root);
+        TreeNode root = TreeNode.createTreeForBSTSequences();
+        List<LinkedList<Integer>> results = recurseTree(root);
         for(LinkedList<Integer> result: results) {
             System.out.print("- ");
             for (Integer i: result) {
@@ -21,7 +20,7 @@ public class BSTSequences {
         }
     }
 
-    public List<LinkedList<Integer>> recurseTree(NodeTree root) {
+    public static List<LinkedList<Integer>> recurseTree(TreeNode root) {
         List<LinkedList<Integer>> results = new ArrayList<>();
         if(root == null) {
             LinkedList<Integer> result = new LinkedList<>();
@@ -46,7 +45,7 @@ public class BSTSequences {
         return results;
     }
 
-    public void weave(LinkedList<Integer> prefix, LinkedList<Integer> left, LinkedList<Integer> right, List<LinkedList<Integer>> weaved) {
+    private static void weave(LinkedList<Integer> prefix, LinkedList<Integer> left, LinkedList<Integer> right, List<LinkedList<Integer>> weaved) {
         if(left.isEmpty() || right.isEmpty()) {
             LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
             result.addAll(left);
@@ -68,40 +67,4 @@ public class BSTSequences {
         right.addFirst(headVal);
     }
 
-    public NodeTree createTree() {
-        NodeTree n = createParentWithChildren(new NodeTree(1), new NodeTree(2), 3);
-        n = createParentWithChildren(n, new NodeTree(4), 5);
-        n = createParentWithChildren(new NodeTree(6), n,  7);
-        n.right.right.right = new NodeTree(8);
-        return n;
-    }
-
-    public NodeTree createTree2() {
-        NodeTree n = createParentWithChildren(new NodeTree(1), new NodeTree(3), 2);
-        n = createParentWithChildren(n, new NodeTree(5), 4);
-        return n;
-    }
-
-    public NodeTree createParentWithChildren(NodeTree left, NodeTree right, int data) {
-        return new NodeTree(left, right, data);
-    }
-
-    public class NodeTree {
-        public NodeTree left;
-        public NodeTree right;
-        public int data;
-
-        public NodeTree() {
-        }
-
-        public NodeTree(int data) {
-            this.data = data;
-        }
-
-        public NodeTree(NodeTree left, NodeTree right, int data) {
-            this.left = left;
-            this.right = right;
-            this.data = data;
-        }
-    }
 }
